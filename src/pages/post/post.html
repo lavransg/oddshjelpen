@@ -1,0 +1,19 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <h3 [innerHTML]="post.title.rendered"></h3>
+  <button ion-button clear small color="primary" icon-start>
+    <p class="date">{{post.date.split('T')[0]}} </p>
+  </button>
+  <p [innerHTML]="post.content.rendered"></p>
+
+
+</ion-content>
