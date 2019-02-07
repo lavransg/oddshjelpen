@@ -1,0 +1,68 @@
+<!--
+  Generated template for the BetsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>bets</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div>
+    total earnings: 
+  </div>
+  <div>
+    Return on investment:
+  </div>
+  <br>
+
+  <button ion-button button-round expand="block" (click)="toggleAdd()">
+    <ion-icon large *ngIf="!addExpanded" name="add-circle-outline"></ion-icon>
+    <ion-icon large *ngIf="addExpanded" name="arrow-dropup-circle"></ion-icon>
+  </button>
+  
+  <div class="add-container" *ngIf="addExpanded">
+
+  <ion-item class="add-item">
+    <ion-input [(ngModel)]="event" placeholder="event"></ion-input>
+  </ion-item>
+  <ion-item class="add-item">
+    <ion-input [(ngModel)]="selection" placeholder="selection"></ion-input>
+  </ion-item>
+  <ion-item class="add-item">
+    <ion-input [(ngModel)]="stake" placeholder="stake"></ion-input>
+  </ion-item>
+  <ion-item class="add-item">
+    <ion-input [(ngModel)]="odds" placeholder="odds"></ion-input>
+  </ion-item>
+  <br>
+  <button ion-button block color="secondary" (click)="addBet()">Add bet</button>
+
+  </div>
+  
+  <br>
+
+  <ion-item>
+    Your bets
+  </ion-item>
+  <ion-list>
+    <ion-item *ngFor="let bet of bets">
+      event: {{bet.event}}
+      <br>selection: {{bet.selection}}
+      <br>stake: {{bet.stake}}
+      <br>odds: {{bet.odds}}
+
+    </ion-item>
+  </ion-list>
+
+
+
+
+</ion-content>

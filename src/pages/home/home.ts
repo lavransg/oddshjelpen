@@ -7,6 +7,7 @@ import { IcehockeyPage } from "../icehockey/icehockey";
 import { BasketballPage } from "../basketball/basketball";
 import { AccountingPage } from "../accounting/accounting";
 import { OtherPage } from "../other/other";
+import { BetsPage } from '../bets/bets';
 
 @Component({
   selector: 'page-home',
@@ -31,7 +32,7 @@ export class HomePage {
         break;
       case 5: page = AccountingPage
         break;
-      case 6: page = OtherPage;
+      case 6: page = BetsPage;
         break;
     }
     if (page){
