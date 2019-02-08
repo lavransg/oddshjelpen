@@ -7,12 +7,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class BetsPage {
 
+  totalEarnings;
+  totalStakes;
+  roi;
+
   addExpanded = false;
   bets = [];
-  event;
-  selection;
-  stake;
-  odds;
+  event = "";
+  selection = "";
+  stake = null;
+  odds = null;
   
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -21,40 +25,66 @@ export class BetsPage {
   
   }
 
+  componentDidMount(){
+    this.calculate()
+  }
+
   toggleAdd(){
     this.addExpanded = !this.addExpanded
   }
 
   addBet(){
-    console.log("adding bet")
-    if (this.event & this.selection & this.stake & this.odds){
-      this.bets.push(
+    console.log("adding bet",this.event, this.selection, this.stake, this.odds)
+    if (this.event != "" && this.selection != "" && this.stake > 0 && this.odds > 0){
+      console.log("adding bet 2")
+      this.bets.unshift(
         {event: this.event, selection: this.selection, stake: this.stake, odds: this.odds}
       )
       this.addExpanded = false
       this.event = ""
       this.selection = ""
-      this.stake = ""
-      this.odds = ""
+      this.stake = null
+      this.odds = null
+      this.calculate()
     }
     
   }
 
   removeBet(bet){
-    for (let bet2 of this.bets){
       if ( this.bets.indexOf(bet) ){
         delete this.bets[this.bets.indexOf(bet)]
+        this.calculate()
       }
-    }
+  }
+
+  betWon(bet){
+    this.bets[this.bets.indexOf(bet)].completed = true
+    this.bets[this.bets.indexOf(bet)].won = true
+    this.calculate()
+  }
+
+  betLost(bet){
+    this.bets[this.bets.indexOf(bet)].completed = true
+    this.bets[this.bets.indexOf(bet)].won = false
+    this.calculate()
   }
 
   calculate(){
-    let before = 0
-    let after = 0
-    for (let bet in this.bets){
-
+    let totalEarnings = 0;
+    let totalStakes = 0;
+    for (let bet of this.bets){
+      if (bet.completed){
+        bet.won ? totalEarnings += parseFloat(bet.stake) * parseFloat(bet.odds) : totalEarnings -= parseFloat(bet.stake)
+        totalStakes += parseFloat(bet.stake)
+      }
     }
-    return []
+    console.log("totalstakes:",totalStakes)
+    if (totalStakes > 0){
+      this.roi = 100 * (totalEarnings / totalStakes) - 100
+      this.totalStakes = totalStakes
+      this.totalEarnings = totalEarnings - totalStakes
+    }
+
   }
 
 

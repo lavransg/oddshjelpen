@@ -16,16 +16,19 @@
 <ion-content padding>
 
   <div>
-    total earnings: 
+    total earnings: {{totalEarnings}}
   </div>
   <div>
-    Return on investment:
+    total stakes: {{totalStakes}}
+  </div>
+  <div>
+    Return on investment: {{roi}} %
   </div>
   <br>
 
   <button ion-button button-round expand="block" (click)="toggleAdd()">
-    <ion-icon large *ngIf="!addExpanded" name="add-circle-outline"></ion-icon>
-    <ion-icon large *ngIf="addExpanded" name="arrow-dropup-circle"></ion-icon>
+    <ion-icon large *ngIf="!addExpanded" name="add-circle"> Add bet</ion-icon>
+    <ion-icon large *ngIf="addExpanded" name="arrow-dropup-circle"> Close</ion-icon>
   </button>
   
   <div class="add-container" *ngIf="addExpanded">
@@ -37,10 +40,10 @@
     <ion-input [(ngModel)]="selection" placeholder="selection"></ion-input>
   </ion-item>
   <ion-item class="add-item">
-    <ion-input [(ngModel)]="stake" placeholder="stake"></ion-input>
+    <ion-input type="number" [(ngModel)]="stake" placeholder="stake"></ion-input>
   </ion-item>
   <ion-item class="add-item">
-    <ion-input [(ngModel)]="odds" placeholder="odds"></ion-input>
+    <ion-input type="number" [(ngModel)]="odds" placeholder="odds"></ion-input>
   </ion-item>
   <br>
   <button ion-button block color="secondary" (click)="addBet()">Add bet</button>
@@ -58,6 +61,14 @@
       <br>selection: {{bet.selection}}
       <br>stake: {{bet.stake}}
       <br>odds: {{bet.odds}}
+      <br>
+      <button *ngIf="!bet.completed" ion-button icon-start (click)="betWon(bet)">
+          <ion-icon color="secondary" name="checkmark-circle-outline"></ion-icon>Won
+      </button>
+      <button *ngIf="!bet.completed" ion-button icon-start (click)="betLost(bet)">
+          <ion-icon color="assertive" name="close-circle-outline"></ion-icon>Lost
+      </button>
+      
 
     </ion-item>
   </ion-list>
