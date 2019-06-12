@@ -20,8 +20,8 @@
   </div>
   <br>
 
-  <ion-card>
-    <ion-card-content>
+  <ion-card *ngIf="roiAggregate">
+    <ion-card-content >
       <canvas #lineCanvas></canvas>
     </ion-card-content>
   </ion-card>
